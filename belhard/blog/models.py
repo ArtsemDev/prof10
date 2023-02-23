@@ -53,7 +53,10 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         verbose_name='автор'
     )
-    is_published = models.BooleanField(default=False, verbose_name='публикация')
+    is_published = models.BooleanField(
+        default=False,
+        verbose_name='публикация',
+    )
 
     @property
     def date(self):
