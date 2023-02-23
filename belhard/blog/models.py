@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 from django.utils.timezone import now
 
 
@@ -52,6 +53,7 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         verbose_name='автор'
     )
+    is_published = models.BooleanField(default=False, verbose_name='публикация')
 
     @property
     def date(self):
@@ -59,6 +61,9 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('blog_post_detail', kwargs={'post_slug': self.slug})
 
     class Meta:
         verbose_name = 'пост'
