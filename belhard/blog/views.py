@@ -5,18 +5,18 @@ from django.views import View
 from django.views.generic import DetailView, ListView
 from slugify import slugify
 
-from .models import Post
+from .models import Post, Portfolio
 from .forms import PostModelForm
 
 
 class PostListView(ListView):
-    model = Post
-    # template_name = 'blog/post_list.html'
+    model = Portfolio
+    template_name = 'blog/index.html'
     http_method_names = ('get', 'post')
-    # context_object_name = 'post_list'
+    context_object_name = 'portfolio_items'
 
     def get_queryset(self):
-        return Post.objects.filter(is_published=True)
+        return Portfolio.objects.all()
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PostListView, self).get_context_data()
@@ -27,8 +27,8 @@ class PostListView(ListView):
         data = request.POST.dict()
         data.update(slug=slugify(request.POST.get('title')))
         form = PostModelForm(data)
-        # if form.is_valid():
-        #   form.save()
+        if form.is_valid():
+            form.save()
         return self.get(request=request)
 
     # def get(self, request, *args, **kwargs):

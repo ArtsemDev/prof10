@@ -71,3 +71,18 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'пост'
         verbose_name_plural = 'посты'
+
+
+class Portfolio(models.Model):
+    title = models.CharField(max_length=64, verbose_name='заголовок')
+    subtitle = models.CharField(max_length=128, verbose_name='подзаголовок')
+    description = models.CharField(max_length=2048, verbose_name='описание')
+    category = models.ForeignKey('Category', on_delete=models.CASCADE)
+    image = models.ImageField(verbose_name='картинка', upload_to='portfolio/')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'портфолио'
+        verbose_name_plural = 'портфолио'

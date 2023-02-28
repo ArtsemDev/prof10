@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin.options import InlineModelAdmin, TabularInline, StackedInline
 
-from .models import Category, Post
+from .models import Category, Post, Portfolio
 
 
 class PostInlineModelAdmin(StackedInline):
@@ -35,6 +35,11 @@ class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title', )}
     readonly_fields = ('date_created', )
     actions = (make_unpublished, make_published)
+
+
+@admin.register(Portfolio)
+class PortfolioAdmin(admin.ModelAdmin):
+    ...
 
 # admin.site.register(Category)
 # admin.site.register(Post)
